@@ -9,7 +9,9 @@ import javax.swing.Timer;
 
 public abstract class Clock {
 
-	public enum States { RUNNING, PAUSED, STOPPED };
+	public enum States { 
+		RUNNING, PAUSED, STOPPED
+	};
 
 	static public States state;
 
@@ -46,6 +48,10 @@ public abstract class Clock {
 	public void startTimer() {
 		updateCurrentTime();
 		desiredTime = currentTime + functionTime;
+		timer.start();
+	}
+
+	public void resumeTimer() {
 		timer.start();
 	}
 
