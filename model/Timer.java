@@ -2,7 +2,9 @@ package model;
 
 import java.awt.event.ActionListener;
 
-import view.TimerCanvas;
+import javax.swing.JOptionPane;
+
+import view.TimerScreen;
 
 import java.awt.event.ActionEvent;
 import java.awt.Color;
@@ -12,7 +14,7 @@ import java.awt.Font;
 public class Timer extends Clock {
 
 	// canvas needed to repaint each cycle
-	TimerCanvas canvas;
+	TimerScreen panel;
 
 	public Timer() {
 		super();
@@ -28,11 +30,21 @@ public class Timer extends Clock {
 			public void actionPerformed(ActionEvent e) {
 				currentTime += 1000;
 				updateHoursMinutesSeconds();
-				System.out.println(hours + ":" + minutes + ":" + seconds);
-				canvas.repaint();
+				panel.getCanvas().repaint();
 
-				if (currentTime >= desiredTime)
+				if (currentTime >= desiredTime) {
 					stopTimer();
+					panel.getHoursCombo().setEnabled(true);
+					panel.getMinutesCombo().setEnabled(true);
+					panel.getSecondsCombo().setEnabled(true);
+					panel.getHoursCombo().setSelectedIndex(0);
+					panel.getMinutesCombo().setSelectedIndex(0);
+					panel.getSecondsCombo().setSelectedIndex(0);
+					panel.getStartPauseButton().setText(("Start"));
+					panel.getCancelButton().setEnabled(false);
+					JOptionPane.showMessageDialog(panel.getWindow(), "Timer Complete!");
+					Timer.state = Timer.States.STOPPED;
+				}
 			}
 		};
 	}
@@ -46,6 +58,9 @@ public class Timer extends Clock {
 	@Override
 	public void reset() {
 		functionTime = 0;
+		hours = 0;
+		minutes = 0;
+		seconds = 0;
 	}
 
 	@Override
@@ -81,8 +96,8 @@ public class Timer extends Clock {
 			g2.drawString("0" + seconds, 360, 115);
 	}
 
-	public void setCanvas(TimerCanvas canvas) {
-		this.canvas = canvas;
+	public void setTimerScreen(TimerScreen panel) {
+		this.panel = panel;
 	}
 	
 }
