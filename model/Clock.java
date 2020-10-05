@@ -2,11 +2,16 @@ package model;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.Graphics2D;
 
 import javax.swing.Timer;
 
 
 public abstract class Clock {
+
+	public enum States { RUNNING, PAUSED, STOPPED };
+
+	static public States state;
 
 	public int hours;
 	public int minutes;
@@ -21,6 +26,7 @@ public abstract class Clock {
 	protected ActionListener listener;
 	
 	public Clock() {
+		state = States.STOPPED;
 		setTimer(1000, new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {}
@@ -54,6 +60,7 @@ public abstract class Clock {
 	protected abstract void defineListener();
 	public abstract void reset();
 	public abstract void setFunctionTime(int hours, int minutes, int seconds);
+	public abstract void render(Graphics2D g2);
 	
 
 }
