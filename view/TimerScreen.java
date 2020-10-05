@@ -41,11 +41,13 @@ public class TimerScreen {
 
 	public TimerScreen(JFrame window) {
 		this.window = window;
+		timer.setTimerScreen(this);
 		window.setSize(new Dimension(WIDTH, HEIGHT));
 	}
 
 	public void init() {
 		Container cp = window.getContentPane();
+		cancelButton.setEnabled(false);
 
 		JPanel northPanel = new JPanel();
 		northPanel.add(clockOptions);
@@ -74,6 +76,7 @@ public class TimerScreen {
 		minutesCombo.addActionListener(listener);
 		secondsCombo.addActionListener(listener);
 		startPauseButton.addActionListener(listener);
+		cancelButton.addActionListener(listener);
 		
 	}
 
@@ -113,5 +116,13 @@ public class TimerScreen {
 
 	public JButton getCancelButton() {
 		return cancelButton;
+	}
+
+	public TimerScreen getTimerScreen() {
+		return this;
+	}
+
+	public JFrame getWindow() {
+		return window;
 	}
 }
