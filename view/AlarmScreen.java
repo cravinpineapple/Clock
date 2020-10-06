@@ -11,6 +11,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 
+import control.AlarmListener;
 import model.Alarm;
 
 public class AlarmScreen {
@@ -38,18 +39,22 @@ public class AlarmScreen {
 	public AlarmScreen(JFrame window) {
 		this.window = window;
 		window.setSize(new Dimension(WIDTH, HEIGHT));
+		alarm.setAlarmScreenAndWindow(this);
 	}
 
 	public void init() {
 		Container cp = window.getContentPane();
 
+
 		JPanel northPanel = new JPanel();
 		northPanel.add(clockCombo);
 		cp.add(BorderLayout.NORTH, northPanel);
 
+
 		JPanel centerPanel = new JPanel();
 		centerPanel.add(canvas);
 		cp.add(BorderLayout.CENTER, centerPanel);
+
 
 		JPanel southPanel = new JPanel();
 		southPanel.setLayout(new GridLayout(2, 1));
@@ -70,6 +75,14 @@ public class AlarmScreen {
 		southPanel.add(southPanel1);
 		southPanel.add(southPanel2);
 		cp.add(BorderLayout.SOUTH, southPanel);
+
+		AlarmListener listener = new AlarmListener(this);
+		clockCombo.addActionListener(listener);
+		hoursCombo.addActionListener(listener);
+		minutesCombo.addActionListener(listener);
+		secondsCombo.addActionListener(listener);
+		onButton.addActionListener(listener);
+		offButton.addActionListener(listener);
 		
 	}
 
@@ -103,6 +116,20 @@ public class AlarmScreen {
 		return clockCombo;
 	}
 
+	public JRadioButton getOffButton() {
+		return offButton;
+	}
 	
+	public JRadioButton getOnButton() {
+		return onButton;
+	}
+
+	public AlarmCanvas getCanvas() {
+		return canvas;
+	}
+
+	public JFrame getWindow() {
+		return window;
+	}
 	
 }
