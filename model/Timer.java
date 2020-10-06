@@ -33,9 +33,7 @@ public class Timer extends Clock {
 
 				if (currentTime >= desiredTime) {
 					stopTimer();
-					panel.getHoursCombo().setEnabled(true);
-					panel.getMinutesCombo().setEnabled(true);
-					panel.getSecondsCombo().setEnabled(true);
+					panel.timeComboBoxSetEnabled(true);
 					panel.getHoursCombo().setSelectedIndex(0);
 					panel.getMinutesCombo().setSelectedIndex(0);
 					panel.getSecondsCombo().setSelectedIndex(0);
@@ -49,9 +47,14 @@ public class Timer extends Clock {
 	}
 
 	public void updateHoursMinutesSeconds() {
-		hours = (int) ((desiredTime - currentTime) / 3600000);
-		minutes = (int) ((desiredTime - currentTime) / 60000);
-		seconds = (int) ((desiredTime - currentTime) / 1000);
+		long timeLeft = desiredTime - currentTime;
+
+		hours = (int) timeLeft / 3600000;
+		timeLeft -= hours * 3600000;
+		minutes = (int) timeLeft / 60000;
+		timeLeft -= minutes * 60000;
+		seconds = (int) timeLeft / 1000;
+		timeLeft -= seconds * 1000;
 	}
 
 	@Override
@@ -75,25 +78,19 @@ public class Timer extends Clock {
 	public void render(Graphics2D g2) {
 		g2.setColor(Color.gray);
 		g2.setFont(new Font("Courier", Font.BOLD, 100));
-		
-		if (hours > 9)
-			g2.drawString("" + hours, 40, 115);
-		else 
-			g2.drawString("0" + hours, 40, 115);
+
+		String hoursString = hours > 9 ? "" + hours : "0" + hours;
+		g2.drawString(hoursString, 40, 115);
 
 		g2.drawString(":", 160, 115);
 
-		if (minutes > 9)
-			g2.drawString("" + minutes, 200, 115);
-		else
-			g2.drawString("0" + minutes, 200, 115);
+		String minutesString = minutes > 9 ? "" + minutes : "0" + minutes;
+		g2.drawString(minutesString, 200, 115);
 
 		g2.drawString(":", 320, 115);
 
-		if (seconds > 9)
-			g2.drawString("" + seconds, 360, 115);
-		else
-			g2.drawString("0" + seconds, 360, 115);
+		String secondsString = seconds > 9 ? "" + seconds : "0" + seconds;
+		g2.drawString(secondsString, 360, 115);
 	}
 
 	public void setTimerScreen(TimerScreen panel) {
