@@ -48,7 +48,6 @@ public class Timer extends Clock {
 
 	public void updateHoursMinutesSeconds() {
 		long timeLeft = desiredTime - currentTime;
-		System.out.println(timeLeft);
 		if (timeLeft < 0) {
 			hours = 0;
 			minutes = 0;
