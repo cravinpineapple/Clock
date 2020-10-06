@@ -34,7 +34,7 @@ public class StopWatchScreen {
 
 	public StopWatchScreen(JFrame window) {
 		this.window = window;
-		window.setSize(new Dimension(WIDTH, HEIGHT));
+		//window.setSize(new Dimension(WIDTH, HEIGHT));
 		stopWatch.setPanel(this);
 	}
 
@@ -56,15 +56,15 @@ public class StopWatchScreen {
 		lapInfo.setEditable(false);
 		var scrollPane = new JScrollPane(lapInfo, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
 			JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED); // display is text area, wrapped up by scrollPane
-		scrollPane.setPreferredSize(new Dimension(490, 100));
+		scrollPane.setPreferredSize(new Dimension(490, 80));
 		southPanel1.add(scrollPane);
 		
 		JPanel southPanel2 = new JPanel();
 		southPanel2.add(startStopButton);
 		lapResetButton.setEnabled(false);
 		southPanel2.add(lapResetButton);
-		southPanel.add(southPanel1);
-		southPanel.add(southPanel2);
+		southPanel.add(BorderLayout.CENTER, southPanel1);
+		southPanel.add(BorderLayout.SOUTH, southPanel2);
 		cp.add(BorderLayout.SOUTH, southPanel);
 
 		StopWatchListener listener = new StopWatchListener(this);
