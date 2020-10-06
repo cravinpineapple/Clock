@@ -22,10 +22,7 @@ public class TimerScreen {
 
 	Timer timer = new Timer();
 
-	//String[] clockOptionsList = {"Timer", "Alarm", "Stopwatch"};
-	private JComboBox<String> clockOptions = new JComboBox<String>(new String[] {"Timer", "Alarm", "Stopwatch"});
-
-	//private JLabel hmsText = new JLabel("00:00:00");
+	private JComboBox<String> clockCombo = new JComboBox<String>(new String[] {"Timer", "Alarm", "Stopwatch"});
 
 	String[] hoursComboStrings = initTimeOptions(24);
 	String[] minutesComboStrings = initTimeOptions(60);
@@ -50,7 +47,7 @@ public class TimerScreen {
 		cancelButton.setEnabled(false);
 
 		JPanel northPanel = new JPanel();
-		northPanel.add(clockOptions);
+		northPanel.add(clockCombo);
 		cp.add(BorderLayout.NORTH, northPanel);
 
 		JPanel centerPanel = new JPanel();
@@ -72,12 +69,12 @@ public class TimerScreen {
 		cp.add(BorderLayout.SOUTH, southPanel);
 
 		TimerListener listener = new TimerListener(this);
+		clockCombo.addActionListener(listener);
 		hoursCombo.addActionListener(listener);
 		minutesCombo.addActionListener(listener);
 		secondsCombo.addActionListener(listener);
 		startPauseButton.addActionListener(listener);
 		cancelButton.addActionListener(listener);
-		
 	}
 
 	private String[] initTimeOptions(int size) {
@@ -92,6 +89,10 @@ public class TimerScreen {
 
 	public Timer getTimer() {
 		return timer;
+	}
+
+	public JComboBox<String> getClockCombo() {
+		return clockCombo;
 	}
 
 	public JComboBox<String> getHoursCombo() {
