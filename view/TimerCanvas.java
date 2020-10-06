@@ -16,7 +16,7 @@ public class TimerCanvas extends JPanel {
 
 	public TimerCanvas(TimerScreen panel) {
 		this.panel = panel;
-		timer = panel.getTimer();
+		timer = this.panel.getTimer();
 		setPreferredSize(new Dimension(500, 200));
 		setBackground(Color.white);
 	}
