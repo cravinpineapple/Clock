@@ -49,6 +49,7 @@ public class StopWatchListener implements ActionListener {
 			if (StopWatch.state == States.RUNNING) {
 				String existingMessage = panel.getLapInfo().getText();
 				lapCount++;
+				stopWatch.updateLapTime();
 				panel.getLapInfo().setText(existingMessage + "\n\n" + "Lap " + lapCount + " - " + stopWatch.toString());
 				stopWatch.resetLapTime();
 			}
