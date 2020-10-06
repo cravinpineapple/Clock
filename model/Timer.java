@@ -20,7 +20,6 @@ public class Timer extends Clock {
 		super();
 		defineListener();
 		setTimer(1000, listener);
-		System.out.println("Timer constructor called");
 	}
 
 	@Override
@@ -76,6 +75,7 @@ public class Timer extends Clock {
 	public void render(Graphics2D g2) {
 		g2.setColor(Color.gray);
 		g2.setFont(new Font("Courier", Font.BOLD, 100));
+		
 		if (hours > 9)
 			g2.drawString("" + hours, 40, 115);
 		else 
