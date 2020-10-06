@@ -3,8 +3,11 @@ package control;
 import java.awt.event.ActionListener;
 
 import javax.swing.JComboBox;
+import javax.swing.JFrame;
 
 import model.Timer;
+import view.AlarmScreen;
+import view.StopWatchScreen;
 import view.TimerScreen;
 
 import java.awt.event.ActionEvent;
@@ -17,6 +20,7 @@ public class TimerListener implements ActionListener {
 	JComboBox<String> hoursCombo;
 	JComboBox<String> minutesCombo;
 	JComboBox<String> secondsCombo;
+	JComboBox<String> clockCombo;
 
 
 	public TimerListener(TimerScreen panel) {
@@ -24,10 +28,12 @@ public class TimerListener implements ActionListener {
 		timer = panel.getTimer();
 	}
 
-	public void updateComboBoxes(JComboBox<String> hoursCombo, JComboBox<String> minutesCombo, JComboBox<String> secondsCombo) {
+	public void updateComboBoxes(JComboBox<String> hoursCombo, JComboBox<String> minutesCombo, 
+									JComboBox<String> secondsCombo, JComboBox<String> clockCombo) {
 		this.hoursCombo = hoursCombo;
 		this.minutesCombo = minutesCombo;
 		this.secondsCombo = secondsCombo;
+		this.clockCombo = clockCombo;
 	}
 
 	public void resetComboBoxes() {
@@ -74,13 +80,32 @@ public class TimerListener implements ActionListener {
 			Timer.state = Timer.States.STOPPED;
 		}
 		else if (Timer.state == Timer.States.STOPPED) {
-			updateComboBoxes(panel.getHoursCombo(), panel.getMinutesCombo(), panel.getSecondsCombo());
+			updateComboBoxes(panel.getHoursCombo(), panel.getMinutesCombo(), panel.getSecondsCombo(), panel.getClockCombo());
 			timer.setFunctionTime(hoursCombo.getSelectedIndex(), 
 				minutesCombo.getSelectedIndex(), secondsCombo.getSelectedIndex());
 			panel.getCanvas().repaint();
-		}
 
-		
+			JFrame window = panel.getWindow();
+			System.out.println("test");
+			switch (clockCombo.getSelectedIndex()) {
+				case 0:
+					break;
+				case 1:
+					panel.getClockCombo().setSelectedIndex(1);
+					window.getContentPane().removeAll();
+					AlarmScreen alarm = new AlarmScreen(window);
+					alarm.init();
+					window.revalidate();
+					break;
+				case 2:
+					panel.getClockCombo().setSelectedIndex(2);
+					window.getContentPane().removeAll();
+					StopWatchScreen stopWatch = new StopWatchScreen(window);
+					stopWatch.init();
+					window.revalidate();
+					break;
+			}
+		}
 	}
 	
 }
