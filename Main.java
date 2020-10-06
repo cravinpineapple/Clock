@@ -12,7 +12,6 @@ public class Main {
 		TimerScreen timerScreen = new TimerScreen(window);
 		timerScreen.init();
 
-		//window.pack();
 		window.setVisible(true);
 	}
 }
