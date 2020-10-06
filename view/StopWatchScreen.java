@@ -34,7 +34,7 @@ public class StopWatchScreen {
 
 	public StopWatchScreen(JFrame window) {
 		this.window = window;
-		//window.setSize(new Dimension(WIDTH, HEIGHT));
+		window.setSize(new Dimension(WIDTH, HEIGHT));
 		stopWatch.setPanel(this);
 	}
 
