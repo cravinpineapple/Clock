@@ -6,7 +6,6 @@ import java.awt.Graphics2D;
 
 import javax.swing.Timer;
 
-
 public abstract class Clock {
 
 	public enum States { 
