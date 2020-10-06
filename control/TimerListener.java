@@ -94,7 +94,6 @@ public class TimerListener implements ActionListener {
 					window.getContentPane().removeAll();
 					StopWatchScreen stopWatch = new StopWatchScreen(window);
 					stopWatch.init();
-					window.pack();
 					window.revalidate();
 					break;
 			}
