@@ -39,21 +39,11 @@ public class StopWatch extends Clock {
 
 	@Override
 	public String toString() {
-		String lapMinutesString = "";
-		String lapSecondsString = "";
+		String lapMinutesString = lapMinutes > 9 ? "" + lapMinutes : "0" + lapMinutes;
+		String lapSecondsString = lapSeconds > 9 ? "" + lapSeconds : "0" + lapSeconds;
 		String lapDecisecondsString = "" + lapDeciseconds;
 
-		if (lapMinutes > 9)
-			lapMinutesString += lapMinutes;
-		else 
-			lapMinutesString += "0" + lapMinutes;
-
-		if (lapSeconds > 9)
-			lapSecondsString += lapSeconds;
-		else
-			lapSecondsString += "0" + lapSeconds;
-
-		return "" + lapMinutesString + ":" + lapSecondsString + ":" + lapDecisecondsString.substring(0, 1);
+		return "" + lapMinutesString + ":" + lapSecondsString + ":" + lapDecisecondsString.substring(0, 1) + "0";
 	}
 
 	@Override
@@ -63,7 +53,6 @@ public class StopWatch extends Clock {
 			public void actionPerformed(ActionEvent e) {
 				functionTime += 100;
 				updateTimeFactors();
-				System.out.println(minutes + ":" + seconds + ":" + deciseconds);
 				panel.getCanvas().repaint();
 
 				if (state == States.PAUSED) {
@@ -74,27 +63,25 @@ public class StopWatch extends Clock {
 		};
 	}
 
+	public void updateLapTime() {
+		lapMinutes = minutes - lapMinutes;
+		lapSeconds = seconds - lapSeconds;
+		lapDeciseconds = deciseconds - lapDeciseconds;
+	}
+
 	public void updateTimeFactors() {
-		//hours = (int) (functionTime / 3600000);
-		//minutes = (int) (functionTime / 60000);
 		seconds = (int) (functionTime / 1000);
-		lapSeconds = (int) (functionTime / 1000);
 
 		deciseconds = (int) (functionTime % 1000);
-		lapDeciseconds = (int) (functionTime % 1000);
 
 		if (minutes == 60) {
 			hours++;
-			lapHours++;
 			minutes = 0;
-			lapMinutes = 0;
 			functionTime -= 3600000;
 		}
 		if (seconds == 60) {
 			minutes++;
-			lapMinutes++;
 			seconds = 0;
-			lapSeconds = 0;
 			functionTime -= 60000;
 		}
 	}
