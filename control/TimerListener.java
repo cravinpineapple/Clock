@@ -47,9 +47,7 @@ public class TimerListener implements ActionListener {
 		var button = e.getSource();
 
 		if (button == panel.getStartPauseButton()) {
-			hoursCombo.setEnabled(false);
-			minutesCombo.setEnabled(false);
-			secondsCombo.setEnabled(false);
+			panel.timeComboBoxSetEnabled(false);
 
 			if (panel.getStartPauseButton().getText() == "Start" || panel.getStartPauseButton().getText() == "Resume") {
 				Timer.state = Timer.States.RUNNING;
@@ -59,7 +57,6 @@ public class TimerListener implements ActionListener {
 					timer.resumeTimer();
 				panel.getStartPauseButton().setText("Pause");
 				panel.getCancelButton().setEnabled(true);
-				//System.out.println("Timer After Pause: " + timer.hours + ":" + timer.minutes + ":" + timer.seconds);
 			}
 			else {
 				Timer.state = Timer.States.PAUSED;
@@ -70,9 +67,7 @@ public class TimerListener implements ActionListener {
 		else if (button == panel.getCancelButton()) {
 			timer.stopTimer();
 			timer.reset();
-			hoursCombo.setEnabled(true);
-			minutesCombo.setEnabled(true);
-			secondsCombo.setEnabled(true);
+			panel.timeComboBoxSetEnabled(true);
 			resetComboBoxes();
 			panel.getStartPauseButton().setText("Start");
 			panel.getCancelButton().setEnabled(false);
@@ -86,22 +81,20 @@ public class TimerListener implements ActionListener {
 			panel.getCanvas().repaint();
 
 			JFrame window = panel.getWindow();
-			System.out.println("test");
 			switch (clockCombo.getSelectedIndex()) {
 				case 0:
 					break;
 				case 1:
-					panel.getClockCombo().setSelectedIndex(1);
 					window.getContentPane().removeAll();
 					AlarmScreen alarm = new AlarmScreen(window);
 					alarm.init();
 					window.revalidate();
 					break;
 				case 2:
-					panel.getClockCombo().setSelectedIndex(2);
 					window.getContentPane().removeAll();
 					StopWatchScreen stopWatch = new StopWatchScreen(window);
 					stopWatch.init();
+					window.pack();
 					window.revalidate();
 					break;
 			}
