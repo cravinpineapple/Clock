@@ -126,4 +126,10 @@ public class TimerScreen {
 	public JFrame getWindow() {
 		return window;
 	}
+
+	public void timeComboBoxSetEnabled(boolean bool) {
+		hoursCombo.setEnabled(bool);
+		minutesCombo.setEnabled(bool);
+		secondsCombo.setEnabled(bool);
+	}
 }
