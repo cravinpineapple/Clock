@@ -32,8 +32,6 @@ public abstract class Clock {
 			@Override
 			public void actionPerformed(ActionEvent e) {}
 		});
-
-		System.out.println("Clock constructor called");
 	}
 
 	public Clock(int delay, ActionListener action) {
